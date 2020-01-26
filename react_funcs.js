@@ -72,10 +72,10 @@ class NavBar extends React.Component{
     <ul className="nav navbar-nav">
       <li>
     <div className="btn-group">
-        <button type="btn btn-info navbar-btn" id = "DASHBOARD" className="btn btn-primary" onClick={() =>{mainPage();console.log("OH YEA")}}>Home(Dashboard)</button>
-        <button type="btn btn-info navbar-btn" id = "TO-DO" className="btn btn-primary" onClick={()=>{toDo()}}>Dynamic To-Do List</button>
+        <button type="btn btn-info navbar-btn" id = "DASHBOARD" className="btn btn-primary" onClick={() =>{clearClientMessage();  mainPage();console.log("OH YEA")}}>Home(Dashboard)</button>
+        <button type="btn btn-info navbar-btn" id = "TO-DO" className="btn btn-primary" onClick={()=>{clearClientMessage();  ;toDo()}}>Dynamic To-Do List</button>
         <button type="btn btn-info navbar-btn" id = "Calendar" className="btn btn-primary">Calendar</button>
-        <button type="btn btn-info navbar-btn" id = "USER_SETTINGS" className="btn btn-primary" onClick={() =>{userSettings();}} ><span className="glyphicon glyphicon-user"></span> User Settings</button>
+        <button type="btn btn-info navbar-btn" id = "USER_SETTINGS" className="btn btn-primary" onClick={() =>{clearClientMessage();  userSettings();}} ><span className="glyphicon glyphicon-user"></span> User Settings</button>
         <button type="btn btn-info navbar-btn" id = "LOGOUT" className="btn btn-primary" onClick={() =>{logout()}}><span className="glyphicon glyphicon-log-out"></span> Logout</button>
     </div>
     </li>
@@ -422,6 +422,12 @@ function logout(){
     });
 }
 
+function clearClientMessage(){
+  //console.log("AL");
+  document.getElementById('client_message').innerHTML = "";
+}
+
+
 function updateAjaxWelcome(){
     const datedata = { 'date': "" };
   
@@ -689,6 +695,14 @@ Plotly.newPlot('elapsed-time-for-today', data, layout);
 
 }
 
+
+
+$( function() {
+  $( "#date" ).datepicker({
+      dateFormat: "yy-mm-dd",
+      minDate: new Date()
+  });
+} );
 
 
 function checkPassStrength(pass) {

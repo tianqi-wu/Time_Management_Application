@@ -42,6 +42,26 @@ if((!isset($_SESSION['username']))){
 	exit;
     }
 
+	$yesterday =  date("Y-m-d", mktime(0, 0, 0, date("m") , date("d")-1,date("Y")));
+
+
+	require 'database.php';
+
+	$stmt = $mysqli->prepare("UPDATE events SET event_done=2 WHERE event_date < ?");
+	if(!$stmt){///////////////
+		echo json_encode(array(
+			"success" => false,
+			"message" => "The query does not work."
+		));
+		exit;
+	}
+	
+	$stmt->bind_param('s', $yesterday);
+	
+	$stmt->execute();
+	
+	$stmt->close();
+
 
 //select event_id, event_time, event_title, event_content from events where event_date = '2019-06-23' and user_id = 1
 if(isset($_SESSION['username'])){
@@ -49,7 +69,7 @@ if(isset($_SESSION['username'])){
 
     require 'database.php';
                     
-	$stmt1 = $mysqli->prepare("select event_id, event_time,   event_date, event_title, event_content from events where user_id = ? and event_done = 0");
+	$stmt1 = $mysqli->prepare("select event_id, event_time,   event_date, event_title, event_content from events where user_id = ? and event_done = 0 group by event_date, event_time asc");
 	if(!$stmt1){
 		echo json_encode(array(
 			"success" => false,
@@ -94,7 +114,7 @@ if(isset($_SESSION['username'])){
 
 
 	echo json_encode(array(
-		"success" => true,
+		"success" => true ,
 		"event_time" => $value_event_time,
 		"event_id" => $value_event_id,
 		"event_date" => $value_event_date,
