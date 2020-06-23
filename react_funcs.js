@@ -33,11 +33,11 @@ const login_page = (
     <h1><p>Tianqi (Andy) Wu's Time Management App </p></h1>
     <form>
       <div className="form-group">
-        <label htmlFor="usr">UserName:</label>
+        <label htmlFor="usr">UserName(Without special characters):</label>
         <input type="text" className="form-control" id="usr" />
       </div>
       <div className="form-group">
-        <label htmlFor="pwd">Password:</label>
+        <label htmlFor="pwd">Password(Without special character, kept properly):</label>
         <input type="password" className="form-control" id="pwd" />
       </div>        
         <button type="button" onClick={() =>{login()}} className="btn btn-success">Login</button>
