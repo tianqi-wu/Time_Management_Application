@@ -69,7 +69,7 @@ if(isset($_SESSION['username'])){
 
     require 'database.php';
                     
-	$stmt1 = $mysqli->prepare("select event_id, event_time,   event_date, event_title, event_content from events where user_id = ? and event_done = 0 group by event_date asc, event_time asc,  event_title asc");
+	$stmt1 = $mysqli->prepare("select event_id, event_time,   event_date, event_title, event_content from events where user_id = ? and event_done = 0");
 	if(!$stmt1){
 		echo json_encode(array(
 			"success" => false,
