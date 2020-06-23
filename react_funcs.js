@@ -59,7 +59,7 @@ const login_page = (
 );
 
 /*** Tweaked NavBar so that everything would render properly. ***/
-
+/***         <button type="btn btn-info navbar-btn" id = "USER_SETTINGS" className="btn btn-primary" onClick={() =>{clearClientMessage();  userSettings();}} ><span className="glyphicon glyphicon-user"></span> User Settings</button> ***/
 class NavBar extends React.Component{
     render(){
     return  (
@@ -78,7 +78,7 @@ class NavBar extends React.Component{
         <button type="btn btn-info navbar-btn" id = "Calendar" className="btn btn-primary">Calendar</button>
         <button type="btn btn-info navbar-btn" id = "Information"  className="btn btn-primary" onClick={()=>{clearClientMessage();functionalInfo();}}>Information</button>
         <button type="btn btn-info navbar-btn" id = "Stickers" className="btn btn-primary" onClick={()=>{clearClientMessage();  ;toDo()}}>Dynamic To-Do List</button>
-        <button type="btn btn-info navbar-btn" id = "USER_SETTINGS" className="btn btn-primary" onClick={() =>{clearClientMessage();  userSettings();}} ><span className="glyphicon glyphicon-user"></span> User Settings</button>
+
         <button type="btn btn-info navbar-btn" id = "LOGOUT" className="btn btn-primary" onClick={() =>{logout()}}><span className="glyphicon glyphicon-log-out"></span> Logout</button>
     
     </div>
