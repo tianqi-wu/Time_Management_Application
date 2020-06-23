@@ -37,7 +37,7 @@ const login_page = (
         <input type="text" className="form-control" id="usr" />
       </div>
       <div className="form-group">
-        <label htmlFor="pwd">Password(Without special character, kept properly):</label>
+        <label htmlFor="pwd">Password(Without special characters, kept properly):</label>
         <input type="password" className="form-control" id="pwd" />
       </div>        
         <button type="button" onClick={() =>{login()}} className="btn btn-success">Login</button>
