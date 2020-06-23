@@ -77,7 +77,6 @@ class NavBar extends React.Component{
         <button type="btn btn-info navbar-btn" id = "VA" className="btn btn-primary" onClick={()=>{clearClientMessage();  ;visualizedAnalysis()}}>Visualized Analysis</button>
         <button type="btn btn-info navbar-btn" id = "Calendar" className="btn btn-primary">Calendar</button>
         <button type="btn btn-info navbar-btn" id = "Information"  className="btn btn-primary" onClick={()=>{clearClientMessage();functionalInfo();}}>Information</button>
-        <button type="btn btn-info navbar-btn" id = "Stickers" className="btn btn-primary" onClick={()=>{clearClientMessage();  ;toDo()}}>Dynamic To-Do List</button>
 
         <button type="btn btn-info navbar-btn" id = "LOGOUT" className="btn btn-primary" onClick={() =>{logout()}}><span className="glyphicon glyphicon-log-out"></span> Logout</button>
     
