@@ -41,6 +41,11 @@
   <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 
 
+  
+
+  <script src="howler.js/dist/howler.js"></script>
+
+
 </head>
 
 <body>
@@ -55,6 +60,29 @@ bottom: 0;
 width: 100%; 
 background-color: rgba(255,255,255,0.01);
 line-height: 40px;">Made by Andy Wu @ tianqiwu.org. All rights reserved.</footer>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCf0iHFIr2YdWMZ7m7ZKqY7UGMEvnT3r3Q",
+    authDomain: "time-management-application.firebaseapp.com",
+    databaseURL: "https://time-management-application.firebaseio.com",
+    projectId: "time-management-application",
+    storageBucket: "time-management-application.appspot.com",
+    messagingSenderId: "939323876188",
+    appId: "1:939323876188:web:0a03daeaef4663b1cc5799",
+    measurementId: "G-YVM5F4FZMK"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
       </body>
 </html>
 

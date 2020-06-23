@@ -33,11 +33,11 @@ const login_page = (
     <h1><p>Tianqi (Andy) Wu's Time Management App </p></h1>
     <form>
       <div className="form-group">
-        <label htmlFor="usr">UserName(Without special characters):</label>
+        <label htmlFor="usr">UserName:</label>
         <input type="text" className="form-control" id="usr" />
       </div>
       <div className="form-group">
-        <label htmlFor="pwd">Password(Without special characters, kept properly):</label>
+        <label htmlFor="pwd">Password(Without special characters):</label>
         <input type="password" className="form-control" id="pwd" />
       </div>        
         <button type="button" onClick={() =>{login()}} className="btn btn-success">Login</button>
@@ -74,9 +74,13 @@ class NavBar extends React.Component{
     <div className="btn-group">
         <button type="btn btn-info navbar-btn" id = "DASHBOARD" className="btn btn-primary" onClick={() =>{clearClientMessage();  mainPage();console.log("OH YEA")}}>Home(Dashboard)</button>
         <button type="btn btn-info navbar-btn" id = "TO-DO" className="btn btn-primary" onClick={()=>{clearClientMessage();  ;toDo()}}>Dynamic To-Do List</button>
+        <button type="btn btn-info navbar-btn" id = "VA" className="btn btn-primary" onClick={()=>{clearClientMessage();  ;visualizedAnalysis()}}>Visualized Analysis</button>
         <button type="btn btn-info navbar-btn" id = "Calendar" className="btn btn-primary">Calendar</button>
+        <button type="btn btn-info navbar-btn" id = "Information"  className="btn btn-primary" onClick={()=>{clearClientMessage();functionalInfo();}}>Information</button>
+        <button type="btn btn-info navbar-btn" id = "Stickers" className="btn btn-primary" onClick={()=>{clearClientMessage();  ;toDo()}}>Dynamic To-Do List</button>
         <button type="btn btn-info navbar-btn" id = "USER_SETTINGS" className="btn btn-primary" onClick={() =>{clearClientMessage();  userSettings();}} ><span className="glyphicon glyphicon-user"></span> User Settings</button>
         <button type="btn btn-info navbar-btn" id = "LOGOUT" className="btn btn-primary" onClick={() =>{logout()}}><span className="glyphicon glyphicon-log-out"></span> Logout</button>
+    
     </div>
     </li>
     </ul>
@@ -132,7 +136,6 @@ class NavBar extends React.Component{
     <p>Quote of Today:{generateQuote()}</p>
     <div>
     <p>Your next plan is:{updateAjaxWelcome()}</p><div id = 'welcome-to-do list'>Loading</div>
-
     </div>
     
     
@@ -146,6 +149,7 @@ class NavBar extends React.Component{
 
                          
          </div>
+
                 
              
     </div>
@@ -167,7 +171,13 @@ class NavBar extends React.Component{
     </div>
 </div>
   );
-  }}
+  }
+
+  componentDidMount(){
+    timeReport();
+  }
+
+}
 
   class ToDoPage1 extends React.Component{
     render(){
@@ -190,27 +200,21 @@ class NavBar extends React.Component{
     <input type="number" id="group" placeholder="group" className="form-control" /><br></br>
     <input type="hidden" name="token" id = "token" value="" className="form-control"/><br></br>
     <button id="create_events" className="form-control" className = "btn btn-info" onClick={()=>{addAjax()}}>Create new events</button><br></br>
-
-   
-
-            
-
-                         
+         
       </div>
                 
              
     </div>
     <div className="col-lg-8 col-md-8 col-sm-12">
+    <div style={{borderRadius:'12px',alignItems:'center'}} id ='best-search-ever'  className="h jumbotron" >
+    <label htmlFor="usr" id='searchYourEntries0'>What you need to search:</label>
+    <input type="text" className="form-control" id="searchYourEntries"/>
+    <button  id='search-button' onClick={()=>{searchAjax();}} className = "btn btn-info">Search</button> 
+
+          
+</div>
         <div style={{borderRadius:'12px',alignItems:'center'}} id ='all-events-present'  className="h jumbotron" >
-
-
-
-            
-
-
-            
-
-                         
+                   
          </div>
                 
              
@@ -228,6 +232,95 @@ class NavBar extends React.Component{
 
 
 
+  }
+
+  function callVirtualSecretary(){
+    //Summon Some Virtual Sound from the Ocean.
+
+    let hour = new Date().getHours(); 
+    let hour1 = "" + new Date().getHours(); 
+    if(hour <= 9){
+      hour1 = "0"+hour1;
+    }
+    let name_of_file = "contents/sound/379/379-"+hour1+"00.mp3.ogg";
+    var sound = new Howl({
+      src: [name_of_file]
+    });
+  sound.play();
+
+    setTimeout(callVirtualSecretary,3600*1000);
+  }
+
+  function timeReport(){
+    if(username=="Admin_Andy"){
+      //An Easter Egg for Sectetary Purposes. Look out!
+    //new Date().getDate()          // Get the day as a number (1-31)
+//new Date().getDay()           // Get the weekday as a number (0-6)
+//new Date().getFullYear()      // Get the four digit year (yyyy)
+let hour = new Date().getHours();         // Get the hour (0-23)
+
+//new Date().getMilliseconds()  // Get the milliseconds (0-999)
+let minu = new Date().getMinutes();       // Get the minutes (0-59)
+//new Date().getMonth()         // Get the month (0-11)
+let seco =  new Date().getSeconds();       // Get the seconds (0-59)
+//new Date().getTime()          // Get the time (milliseconds since January 1, 1970)
+var d = new Date();
+var min = d.getMinutes();
+var sec = d.getSeconds();
+
+if((min == '00') && (sec == '00'))
+    callVirtualSecretary();
+else
+    setTimeout(callVirtualSecretary,(60*(60-min)+(60-sec))*1000);
+    }
+  }
+
+  class VdAs extends React.Component{
+
+    render(){
+      return (<div>
+<div className="col-lg-4 col-md-4 col-sm-12">
+<div style={{borderRadius:'12px',alignItems:'center'}} className="h jumbotron" >
+<h3>Welcome, {username}!</h3>
+  <p>This is the Visualized Analysis Page, where you can look at how your plans are going!</p>
+  <article>I set up this page so that you will not be worried about losing control of your overall schedule. Enjoy!</article>
+  </div>
+</div>
+<div className="col-lg-4 col-md-4 col-sm-12">
+<div style={{borderRadius:'12px',alignItems:'center'}} className="h jumbotron" >
+  <p>This is the plot for past, ongoing and completed events:</p>
+<div id = "plot-analysis-pages"></div></div>
+      </div>
+      <div className="col-lg-4 col-md-4 col-sm-12">
+        <div style={{borderRadius:'12px',alignItems:'center'}} className="h jumbotron" >
+          <p>Settings:</p>
+        <button type="button" onClick={() =>{clearPastAjax();}} className="btn btn-warning" style = {{marginLeft: '20px'}}>Remove Past Events</button>
+        </div>
+      </div>
+      </div>);
+    }
+    componentDidMount(){
+      setTimeout(function(){analyzeAjax()},200);
+    }
+  }
+
+  function plotForAnalysis(done,going,past){
+    console.log("Vi St");
+    console.log(done,going,past)
+    var data = [{
+  values: [done, going,  past],
+  labels: ['FinishedEvents', 'Ongoing Events','Past Events'],
+  type: 'pie'
+}];
+
+var layout = {
+  height: 332,
+  width: 311
+};
+
+Plotly.newPlot('plot-analysis-pages', data, layout);
+
+    
   }
 
   function getDate(){
@@ -424,7 +517,7 @@ function logout(){
 
 function clearClientMessage(){
   //console.log("AL");
-  document.getElementById('client_message').innerHTML = "";
+  ReactDOM.render(<div></div>,document.getElementById('client_message'));
 }
 
 
@@ -472,7 +565,7 @@ function updateAjaxWelcome(){
           let allResult = [];
 
           for(var kk = 1;kk<countres-1;kk++){
-            let oneComponent = "Event"+kk+":</p>"+"<p>"+event_date_result[kk]+" "+event_time_result[kk]+"\n "+event_title_result[kk]+" "+"<button type=\"button\" onclick =\"updateAjaxComplete("+event_id_result[kk]+")\" class=\"btn btn-success\">Complete Task</button><button type=\"button\" onclick =\"deleteAjax("+event_id_result[kk]+")\" class=\"btn btn-danger\">Remove Task</button></p>";
+            let oneComponent = "Event"+kk+":</p>"+"<p>"+event_date_result[kk]+" "+event_time_result[kk]+"\n "+event_title_result[kk]+" "+"<button type=\"button\" onclick =\"updateAjaxComplete("+event_id_result[kk]+")\" className=\"btn btn-success\">Complete Task</button><button type=\"button\" onclick =\"deleteAjax("+event_id_result[kk]+")\" className=\"btn btn-danger\">Remove Task</button></p>";
             allResult.push(oneComponent);
 
             console.log(allResult[oneComponent]);
@@ -582,7 +675,98 @@ function deleteAjax(number){
   
 }
 
+function analyzeAjax(){
+  const edata1 = { 'date': "" };
+  $.ajax({
+    type: "POST",
+    url: "analyze_ajax.php",
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify(edata1),
+    dataType: "json",
+    success: function (data){ 
+      plotForAnalysis(data.done,data.going,data.past)
+      
+     },
+    error: function (data) {
+      
+    },
+    complete: function(data){
+     
+    }
+});
+}
 
+function clearPastAjax(){
+  console.log("Working")
+  const edata1 = { 'date': "" };
+  $.ajax({
+    type: "POST",
+    url: "clear_past_ajax.php",
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify(edata1),
+    dataType: "json",
+    success: function (data){ 
+      
+      analyzeAjax()
+
+     },
+    error: function (data) {
+      
+    },
+    complete: function(data){
+
+    }
+});
+
+}
+
+
+function searchAjax(){
+  const data0 = document.getElementById('searchYourEntries').value;
+  const data1 = {"search":data0};
+
+
+  $.ajax({
+    type: "POST",
+    url: "search_ajax.php",
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify(data1),
+    dataType: "json",
+    success: function (data){ 
+      if(data.success){
+      let event_time_result = (data.event_time.toString()+ "").split("\n");
+      let event_id_result = (data.event_id.toString()+ "").split("\n");
+      let event_title_result = (data.event_title.toString()+ "").split("\n");
+      let event_date_result = (data.event_date.toString()+ "").split("\n");
+      let event_content_result = (data.event_content.toString()+ "").split("\n");
+      let countres = event_title_result.length;
+
+      
+      let allResult = [];
+
+      for(var kk = 1;kk<countres-1;kk++){
+        let oneComponent = "Event"+kk+":</p>"+"<p>"+event_date_result[kk]+" "+event_time_result[kk]+"\n "+event_title_result[kk]+" "+"<button type=\"button\" onclick =\"updateAjaxComplete("+event_id_result[kk]+")\" className=\"btn btn-success\">Complete Task</button><button type=\"button\" onclick =\"deleteAjax("+event_id_result[kk]+")\" className=\"btn btn-danger\">Remove Task</button></p>";
+        allResult.push(oneComponent);
+
+        console.log(allResult[oneComponent]);
+      }
+
+      
+        (data.event_time == "\n")?
+       document.getElementById('all-events-present').innerHTML = "Seems that we just can't find it.":document.getElementById('all-events-present').innerHTML = allResult.join("");
+   }else{
+    //ReactDOM.render((<div className="alert alert-danger"><strong>Searching Error!</strong>&nbsp; Please enter valid search query!!</div>),document.getElementById('client_message'));
+   }
+   },
+    error: function (data) {
+      
+    },
+    complete: function(data){
+      //updateAjax();
+    }
+});
+
+}
 
 
 
@@ -608,7 +792,78 @@ function toDo(){
   ReactDOM.render((<div><NavBar/><br></br> <ToDoPage1/></div>),document.getElementById('login'));
 }
 
+function functionalInfo(){
+  let funInfo = (<div><NavBar/>
+    <h3>Functional Information for the application:</h3>
+    <div className="panel-group" id="accordion">
+  <div className="panel panel-default">
+    <div className="panel-heading">
+      <h4 className="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+        Mainpage</a>
+      </h4>
+    </div>
+    <div id="collapse2" className="panel-collapse collapse">
+      <div className="panel-body">The page where you would get some time-saving quotes, what you might do next, and remaining time for today.
+      
+      </div>
+    </div>
+  </div>
+  <div className="panel panel-default">
+    <div className="panel-heading">
+      <h4 className="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+        To-Do List(TaskManager)</a>
+      </h4>
+    </div>
+    <div id="collapse3" className="panel-collapse collapse">
+      <div className="panel-body">You can add/delete/mark tasks as complete on the TaskManager page. It's currently sorted by date and time.</div>
+      <div className="panel-body">Future functions: Sort by other items, sort by weights, etc. </div>
+      <div className="panel-body">* Also, the past events that are not complete would be marked as "incomplete" and would not appear. </div>
+    </div>
+  </div>
+  <div className="panel panel-default">
+    <div className="panel-heading">
+      <h4 className="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+        Calendar(currently disabled)</a>
+      </h4>
+    </div>
+    <div id="collapse5" className="panel-collapse collapse">
+      <div className="panel-body">Displays events on a calendar fashion.</div>
+      <div className="panel-body">Disabled because I would like to add some styles.</div>
+     
+    </div>
+  </div>
 
+  <div className="panel panel-default">
+    <div className="panel-heading">
+      <h4 className="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
+        User settings(currently under construction)</a>
+      </h4>
+    </div>
+    <div id="collapse6" className="panel-collapse collapse">
+      <div className="panel-body">Sets use profiles and event alerts.</div>
+      <div className="panel-body">Currently under construction.</div>
+     
+    </div>
+  </div>
+  
+</div>
+
+
+</div>
+
+);
+
+     ReactDOM.render(funInfo,document.getElementById('login'));
+}
+
+function visualizedAnalysis(){
+  document.title = 'Time Management App|Visualized Analysis'
+  ReactDOM.render((<div><NavBar/><br></br> <VdAs/></div>),document.getElementById('login'));
+}
 
 function userSettings(){
     //There are two situations: LOGIN and MAINPAGE. Seems that MAINPAGE will not ruin the workflow.

@@ -7,7 +7,7 @@ header("Content-Type: application/json"); // Since we are sending a JSON respons
 $json_str = file_get_contents('php://input');
 //This will store the data into an associative array
 $json_obj = json_decode($json_str, true);
-
+$search = (string) trim($json_obj['search']);
 //Variables can be accessed as such:
 #$date = (string) trim($json_obj['date']);
 
@@ -20,7 +20,13 @@ session_start();//Start the session
 $previous_ua = @$_SESSION['useragent'];
 $current_ua = $_SERVER['HTTP_USER_AGENT'];
 
-
+if( !preg_match('/^[\w_\.\-]+$/', $search) ){
+	echo json_encode(array(
+		"success" => false,
+		"message" => "Invalid Query Entries!"
+	));
+	exit;
+}
 
 /*
 
@@ -45,9 +51,17 @@ if((!isset($_SESSION['username']))){
 	$yesterday =  date("Y-m-d", mktime(0, 0, 0, date("m") , date("d")-1,date("Y")));
 
 
+
+
+
+    $search = '%'.$search;
+    
+    $search = $search.'%';
+
+
 	require 'database.php';
 
-	$stmt = $mysqli->prepare("UPDATE events SET event_done=2 WHERE event_date < ? AND event_done <> 1");
+	$stmt = $mysqli->prepare("UPDATE events SET event_done=2 WHERE event_date < ?");
 	if(!$stmt){///////////////
 		echo json_encode(array(
 			"success" => false,
@@ -69,7 +83,7 @@ if(isset($_SESSION['username'])){
 
     require 'database.php';
                     
-	$stmt1 = $mysqli->prepare("select event_id, event_time,   event_date, event_title, event_content from events where user_id = ? and event_done = 0 group by event_date asc, event_time asc,  event_title asc");
+	$stmt1 = $mysqli->prepare("select event_id, event_time,   event_date, event_title, event_content from events where event_done = 0 and event_title like ? group by event_date asc, event_time asc,  event_title asc");
 	if(!$stmt1){
 		echo json_encode(array(
 			"success" => false,
@@ -78,7 +92,7 @@ if(isset($_SESSION['username'])){
 		exit;
 	}
 	
-	$stmt1->bind_param('i', $user_id);
+	$stmt1->bind_param('s', $search);
 	
 	$stmt1->execute();
 
